@@ -5,14 +5,19 @@ using UnityEngine;
 public class Obstacles : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionEnter(Collision collision)
     {
-        
+        // Check if the object collided with has the tag "Obstacle"
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            // Try to get the Health component from the object collided with
+            var healthComponent = collision.gameObject.GetComponent<Health>();
+            if (healthComponent != null)
+            {
+                // Deduct 10 health points from the object
+                healthComponent.TakeDamage(10);
+            }
+        }
     }
 }
